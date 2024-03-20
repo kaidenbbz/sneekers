@@ -38,12 +38,6 @@ const onCilckAddPlus = (item) => {
   }
 }
 
-defineProps({
-  title: String,
-  price: Number,
-  imageUrl: String
-})
-
 onMounted(async () => {
   try {
     const { data } = await axios.get('https://a02d6b054691f2a2.mokky.dev/favor')
