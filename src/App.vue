@@ -57,15 +57,12 @@ provide('cart', {
 </script>
 
 <template>
-  <Transition>
-    <DrawerBasket
-      v-auto-animate
-      v-if="drawerOpen"
-      :total-price="totalPrice"
-      :vat-price="vatPrice"
-      @confimOrder="confimOrder"
-    />
+  <Transition name="fade">
+    <div class="wrapper" v-if="drawerOpen">
+      <DrawerBasket :total-price="totalPrice" :vat-price="vatPrice" @confimOrder="confimOrder" />
+    </div>
   </Transition>
+
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-14">
     <MainHeader :total-price="totalPrice" @open-drawer="openDrawer" />
 
@@ -76,13 +73,13 @@ provide('cart', {
 </template>
 
 <style lang="scss" scoped>
-.v-enter-active,
-.v-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

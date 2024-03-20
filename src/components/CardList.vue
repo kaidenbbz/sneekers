@@ -14,9 +14,8 @@ const filterredItems = computed(() => {
 </script>
 
 <template>
-  <div v-auto-animate class="grid grid-cols-4 gap-5">
+  <div class="grid grid-cols-4 gap-5">
     <CardHome
-      v-auto-animated
       v-for="(item, idx) in filterredItems"
       :key="idx"
       :item="item"
