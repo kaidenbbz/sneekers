@@ -1,6 +1,6 @@
 <script setup>
 import { ref, provide, computed } from 'vue'
-import HeaderMain from './components/HeaderMain.vue'
+import MainHeader from './components/MainHeader.vue'
 import DrawerBasket from './components/DrawerBasket.vue'
 import axios from 'axios'
 
@@ -67,7 +67,7 @@ provide('cart', {
     />
   </Transition>
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-14">
-    <HeaderMain :total-price="totalPrice" @open-drawer="openDrawer" />
+    <MainHeader :total-price="totalPrice" @open-drawer="openDrawer" />
 
     <div class="p-10">
       <router-view></router-view>
