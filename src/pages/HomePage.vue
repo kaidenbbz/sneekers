@@ -57,6 +57,28 @@ const onChangeSelect = (event) => {
   filters.sortBy = event.target.value
 }
 
+onMounted(async () => {
+  await fetchItems()
+  await fetchFavorites()
+  const localCart = localStorage.getItem('cart')
+  cart.value = localCart ? JSON.parse(localCart) : []
+
+  items.value = items.value.map((item) => ({
+    ...items,
+    isAdded: cart.value.some((cartItem) => cartItem.id === item.id)
+  }))
+})
+
+watch(
+  cart,
+  () => {
+    localStorage.setItem('cart', JSON.stringify(cart.value))
+  },
+  {
+    deep: true
+  }
+)
+
 const onChanheSearchInput = (event) => {
   filters.searchQuery = event.target.value
 }
