@@ -53,11 +53,6 @@ const fetchItems = async () => {
     console.log(err)
   }
 }
-onMounted(async () => {
-  await fetchItems()
-  await fetchFavorites()
-})
-
 const onChangeSelect = (event) => {
   filters.sortBy = event.target.value
 }
