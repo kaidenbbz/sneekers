@@ -29,8 +29,9 @@ const emit = defineEmits('confimOrder')
         image-url="/package-icon.png"
       />
     </div>
-
-    <CartItemList v-if="totalPrice" />
+    <div v-for="cart in cartsStore.carts" :key="cart.id">
+      <CartItemList v-if="totalPrice" :carts="carts" />
+    </div>
 
     <div v-if="totalPrice" class="flex flex-col gap-5 mt-5">
       <div class="flex gap-2">

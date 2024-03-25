@@ -3,6 +3,11 @@ import { ref, provide, computed } from 'vue'
 import MainHeader from './components/MainHeader.vue'
 import DrawerBasket from './components/DrawerBasket.vue'
 import axios from 'axios'
+import { useCartStore } from '../stores/carts'
+
+const cartsStore = useCartStore()
+
+const carts = cartsStore.carts
 
 /* Корзина*/
 const cart = ref([])

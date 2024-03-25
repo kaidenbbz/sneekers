@@ -1,12 +1,15 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 import axios from 'axios'
 import { inject } from 'vue'
 import CardList from '../components/CardList.vue'
+import { useItemsStore } from '../stores/items'
+
+const itemsStore = useItemsStore()
+
+const items = itemsStore.items
 
 const { cart, addToCart, removeFromCart } = inject('cart')
-
-const items = ref([])
 
 const filters = reactive({
   sortBy: 'title',
@@ -33,26 +36,6 @@ const fetchFavorites = async () => {
   }
 }
 
-const fetchItems = async () => {
-  try {
-    const params = {
-      sortBy: filters.sortBy
-    }
-    if (filters.searchQuery) {
-      params.title = `*${filters.searchQuery}*`
-    }
-
-    const { data } = await axios.get('https://604781a0efa572c1.mokky.dev/items', { params })
-    items.value = data.map((obj) => ({
-      ...obj,
-      isFavorite: false,
-      isAdded: false,
-      favoriteId: null
-    }))
-  } catch (err) {
-    console.log(err)
-  }
-}
 const onChangeSelect = (event) => {
   filters.sortBy = event.target.value
 }
@@ -93,7 +76,6 @@ onMounted(async () => {
   const localCart = localStorage.getItem('cart')
   cart.value = localCart ? JSON.parse(localCart) : []
 
-  await fetchItems()
   await fetchFavorites()
 
   items.value = items.value.map((item) => ({
@@ -102,14 +84,7 @@ onMounted(async () => {
   }))
 })
 
-watch(filters, fetchItems)
-watch(
-  cart,
-  () => {
-    localStorage.setItem('cart', JSON.stringify(cart.value))
-  },
-  { deep: true }
-)
+watch(filters)
 </script>
 
 <template>
@@ -135,7 +110,7 @@ watch(
       </div>
     </div>
   </div>
-  <div class="mt-10">
+  <div class="mt-10" v-for="item in itemsStore.items" :key="item.id">
     <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="onCilckAddPlus" />
   </div>
 </template>

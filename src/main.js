@@ -7,6 +7,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from './pages/HomePage.vue'
 import FavoritesPage from './pages/FavoritesPage.vue'
 
+import { createPinia } from 'pinia'
+
 const app = createApp(App)
 
 const routes = [
@@ -18,6 +20,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+app.use(createPinia())
 
 app.use(router)
 app.use(autoAnimatePlugin)

@@ -1,22 +1,17 @@
 <script setup>
-import { computed } from 'vue'
 import CardHome from './CardHome.vue'
 
-const props = defineProps({
+defineProps({
   items: Array
 })
 
 const emit = defineEmits(['addToFavorite', 'addToCart'])
-
-const filterredItems = computed(() => {
-  return props.items.slice(0, 12)
-})
 </script>
 
 <template>
   <div class="grid grid-cols-4 gap-5">
     <CardHome
-      v-for="(item, idx) in filterredItems"
+      v-for="(item, idx) in items"
       :key="idx"
       :item="item"
       :onClickFavorite="() => emit('addToFavorite', item)"
